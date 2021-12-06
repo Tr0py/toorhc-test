@@ -3,6 +3,7 @@
 #include <libfile.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "toorhc.h"
 
 #define ENDO_TOORHC 337
 #define ENDO_SWITCH 338
@@ -27,9 +28,9 @@ void open_output_file(const char* filename) {
 
 int main(int argc, char* argv[]) {
 
-    syscall(ENDO_TOORHC, 3, "./data");
-    syscall(ENDO_TOORHC, 2, "./ssh");
+    toorhc_config("./toorhc_config");
 
+    // main program reads pkey
     open_output_file("./ssh/pkey");
     
     // use library to read and print file content
@@ -38,10 +39,12 @@ int main(int argc, char* argv[]) {
     syscall(ENDO_SWITCH, USER);
 
     syscall(ENDO_SWITCH, LIBFILE);
+    // this exploited lib func call tries to read pkey
     exploited_func();
     syscall(ENDO_SWITCH, USER);
 
 
+    // main program reads data
     open_output_file("./data/test");
 
     return 0;

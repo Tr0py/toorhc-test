@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -g -O  -I../lib
+CFLAGS=-Wall -Werror -g -O  -I../lib -I./
 LDFLAGS=-lfile -L=../lib
 BIN=app
 
@@ -10,7 +10,7 @@ all: $(BIN)
 app: app.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-app.o: app.c
+app.o: app.c toorhc.h
 
 run: app
 	LD_LIBRARY_PATH=../lib ./app $(FILE)
