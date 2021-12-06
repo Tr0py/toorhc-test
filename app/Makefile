@@ -18,5 +18,8 @@ run: app
 ivrun: app
 	LD_LIBRARY_PATH=../lib ~/IV ~/glibc ./app $(FILE)
 
+gdb: app
+	LD_LIBRARY_PATH=../lib gdb --args ~/IV ~/glibc ./app $(FILE)
+
 clean: 
 	rm -f *.o $(BIN) 
